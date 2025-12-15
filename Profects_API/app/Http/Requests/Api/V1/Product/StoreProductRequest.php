@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\V1;
+namespace App\Http\Requests\Api\V1\Product;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProductRequest extends FormRequest
+class StoreProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,20 +22,22 @@ class UpdateProductRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'sometimes|string|unique:products,name,' . $this->route('id'),
-            'price' => 'sometimes|numeric|min:0',
-            'category_id' => 'sometimes|integer|exists:categories,id',
+            'name' => 'required|string|unique:products,name',
+            'price' => 'required|numeric|min:0',
+            'category_id' => 'required|integer|exists:categories,id',
         ];
     }
 
     public function messages(): array {
         return [
-            'name.string' => 'Productnaam moet een string zijn.',
-            'name.unique' => 'Deze productnaam bestaat al.',
+            'name.required' => 'Naam van het product is verplicht.',
+            'name.string' => 'Product moet een string zijn.',
+            'name.unique' => 'Voeg een niet bestaand product toe.',
+            'price.required' => 'Prijs is verplicht.',
             'price.numeric' => 'Prijs moet een nummer zijn.',
-            'price.min' => 'Prijs mag niet negatief zijn.',
+            'category_id.required' => 'Categorie ID is verplicht.',
             'category_id.integer' => 'Categorie ID moet een nummer zijn.',
-            'category_id.exists' => 'Categorie bestaat niet.',
+            'category_id.exists' => 'Categorie ID bestaat niet.',
         ];
     }
 }

@@ -3,13 +3,11 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\V1\StoreProductRequest;
-use App\Http\Requests\Api\V1\UpdateProductRequest;
+use App\Http\Requests\Api\V1\Product\StoreProductRequest;
+use App\Http\Requests\Api\V1\Product\UpdateProductRequest;
 use App\Http\Resources\Api\V1\ProductResource;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Http\Request;
 use App\Models\V1\Product;
+use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
@@ -36,7 +34,7 @@ class ProductController extends Controller
         if ($product) {
             return $product->toResource(ProductResource::class);
         } else {
-            return response()->json(['message' => "Product met ID: $id bestaat niet!"], 200);
+            return response()->json(['message' => "Product met ID: $id bestaat niet!"], 404);
         }
 
     }

@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\Api\V1;
+namespace App\Http\Requests\Api\V1\Category;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class LoginRequest extends FormRequest
+class UpdateCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,18 +22,15 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'username' => 'required|string',
-            'password' => 'required|string',
+            'name' => 'sometimes|string|unique:categories,name,' . $this->route('id'),
         ];
     }
 
-    public function messages(): array
-    {
+    public function messages(): array {
         return [
-            'username.required' => 'Gebruikersnaam is verplicht.',
-            'username.string' => 'Gebruikersnaam moet een string zijn.',
-            'password.required' => 'Wachtwoord is verplicht.',
-            'password.string' => 'Wachtwoord moet een string zijn.',
+            'name.string' => 'Categorienaam moet een string zijn.',
+            'name.unique' => 'Deze categorienaam bestaat al.',
         ];
     }
+
 }

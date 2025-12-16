@@ -36,7 +36,6 @@ class CategoryController extends Controller
         if ($category) {
             $category->update ([
                 'name' => $request->input('name'),
-                'created_at' => now(),
                 'updated_at' => now(),
             ]);
 

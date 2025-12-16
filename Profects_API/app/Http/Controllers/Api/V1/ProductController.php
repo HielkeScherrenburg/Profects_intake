@@ -7,7 +7,6 @@ use App\Http\Requests\Api\V1\Product\StoreProductRequest;
 use App\Http\Requests\Api\V1\Product\UpdateProductRequest;
 use App\Http\Resources\Api\V1\ProductResource;
 use App\Models\V1\Product;
-use App\Models\V1\Attribute;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -51,7 +50,6 @@ class ProductController extends Controller
                 'description' => $request->input('description'),
                 'weight' => $request->input('weight'),
                 'category_id' => $request->input('category_id'),
-                'created_at' => now(),
                 'updated_at' => now(),
             ]);
 
@@ -71,7 +69,7 @@ class ProductController extends Controller
             'weight' => $request->input('weight', null),
             'category_id' => $request['category_id'],
             'created_at' => now(),
-            'updated_at' => now()
+            'updated_at' => now(),
         ]);
 
         return $product->toResource(ProductResource::class);
